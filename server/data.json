@@ -104,6 +104,55 @@
       "date": "2023-12-08T11:37:17.379Z",
       "useFor": "food",
       "id": 22
+    },
+    {
+      "type": "income",
+      "money": 20000,
+      "date": "2023-12-08T11:46:22.675Z",
+      "useFor": "salary",
+      "id": 23
+    },
+    {
+      "type": "pay",
+      "money": -250,
+      "date": "2023-12-08T11:54:53.691Z",
+      "useFor": "dessert",
+      "id": 24
+    },
+    {
+      "type": "pay",
+      "money": -1000,
+      "date": "2023-11-07T16:00:00.000Z",
+      "useFor": "dessert",
+      "id": 25
+    },
+    {
+      "type": "pay",
+      "money": -1000,
+      "date": "2023-11-05T16:00:00.000Z",
+      "useFor": "dessert",
+      "id": 26
+    },
+    {
+      "type": "pay",
+      "money": -220,
+      "date": "2023-12-07T16:00:00.000Z",
+      "useFor": "drinks",
+      "id": 27
+    },
+    {
+      "type": "pay",
+      "money": -20,
+      "date": "2023-11-07T16:00:00.000Z",
+      "useFor": "taxi",
+      "id": 28
+    },
+    {
+      "type": "pay",
+      "money": -20,
+      "date": "2023-12-07T16:00:00.000Z",
+      "useFor": "taxi",
+      "id": 29
     }
   ]
 }
