@@ -51,6 +51,14 @@ const Month = () => {
             total: pay + income
         }
     }, [currentMonthList]);
+
+    // 初始化当前月的统计数据
+    useEffect(() => {
+        if (monthGroup[currentDate]){
+            setCurrentMonthList(monthGroup[currentDate])
+        }
+    }, [monthGroup]);
+
     // 确认回调
     const onConfirm = (date) => {
         setDateVisible(false)
