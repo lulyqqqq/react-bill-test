@@ -5,6 +5,7 @@ import classNames from "classnames";
 import dayjs from "dayjs";
 import {useSelector} from "react-redux";
 import _ from 'lodash'
+import DayBill from "@/pages/Month/components/DayBill";
 
 const Month = () => {
     // 按月分组
@@ -43,18 +44,29 @@ const Month = () => {
     const [currentMonthList, setCurrentMonthList] = useState([])
 
     const monthResult = useMemo(() => {
-        const pay = currentMonthList.filter(item => item.type === "pay").reduce((a, c) => a + c.money, 0)
-        const income = currentMonthList.filter(item => item.type === "income").reduce((a, c) => a + c.money, 0)
-        return {
-            pay,
-            income,
-            total: pay + income
+        let pay = 0;
+        let income = 0
+        if (currentMonthList) {
+            pay = currentMonthList.filter(item => item.type === "pay").reduce((a, c) => a + c.money, 0)
+            income = currentMonthList.filter(item => item.type === "income").reduce((a, c) => a + c.money, 0)
+            return {
+                pay,
+                income,
+                total: pay + income
+            }
+        } else {
+            return {
+                pay,
+                income,
+                total: pay + income
+            }
         }
+
     }, [currentMonthList]);
 
     // 初始化当前月的统计数据
     useEffect(() => {
-        if (monthGroup[currentDate]){
+        if (monthGroup[currentDate]) {
             setCurrentMonthList(monthGroup[currentDate])
         }
     }, [monthGroup]);
@@ -69,6 +81,18 @@ const Month = () => {
         setCurrentMonthList(monthGroup[dateFormat])
         setCurrentDate(dateFormat)
     }
+
+    // 获得当前月按照日的来进行分组
+    const dayGroup = useMemo(() => {
+        const groupData = _.groupBy(currentMonthList, (item) => dayjs(item.date).format('YYYY-MM-DD'))
+        // 获得当前天的key
+        const keys = Object.keys(groupData)
+        return {
+            groupData,
+            keys
+        }
+    }, [currentMonthList])
+
     return (
         <div className="monthlyBill">
             <NavBar className="nav" backArrow={false}>
@@ -111,6 +135,13 @@ const Month = () => {
                         max={new Date()}
                     />
                 </div>
+                {/*单日列表统计*/}
+                {
+                    dayGroup.keys.map(day => {
+                        return <DayBill key={day} date={day} billList={dayGroup.groupData[day]}/>
+                    })
+                }
+
             </div>
         </div>
     )
