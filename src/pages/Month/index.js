@@ -1,17 +1,30 @@
 import {NavBar, DatePicker} from 'antd-mobile'
 import './index.scss'
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import classNames from "classnames";
 import dayjs from "dayjs";
+import {useSelector} from "react-redux";
+import _ from 'lodash'
 
 const Month = () => {
+    // 按月分组
+    const billList = useSelector(state => state.bill.billList)
+    /**
+     * 使用useMemo,可以缓存函数执行的结果,通过返回值返回出去,当依赖函数改变useMemo会重新执行
+     *
+      */
+    const monthGroup = useMemo(() =>{
+
+        console.log("执行了")
+        return _.groupBy(billList,(item) => dayjs(item.date).format('YYYY-MM'))
+    },[billList])
+    console.log(monthGroup)
     // 控制日期选择框的打开和关闭
     const [dateVisible, setDateVisible] = useState(false)
     // 控制时间显示
     const [currentDate, setCurrentDate] = useState(() => {
         return dayjs(new Date()).format('YYYY-MM')
     })
-
 
     // debug 监听dateVisible值,方便查看数据
     /**
