@@ -138,6 +138,7 @@ const Month = () => {
                 {/*单日列表统计*/}
                 {
                     dayGroup.keys.map(day => {
+                        console.log(dayGroup.groupData[day])
                         return <DayBill key={day} date={day} billList={dayGroup.groupData[day]}/>
                     })
                 }
