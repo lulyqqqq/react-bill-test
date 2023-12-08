@@ -1,18 +1,34 @@
 import {NavBar, DatePicker} from 'antd-mobile'
 import './index.scss'
 import {useEffect, useState} from "react";
-import {sleep} from "antd-mobile/es/utils/sleep";
 import classNames from "classnames";
+import dayjs from "dayjs";
 
 const Month = () => {
+    // 控制日期选择框的打开和关闭
     const [dateVisible, setDateVisible] = useState(false)
+    // 控制时间显示
+    const [currentDate, setCurrentDate] = useState(() => {
+        return dayjs(new Date()).format('YYYY-MM')
+    })
 
+
+    // debug 监听dateVisible值,方便查看数据
+    /**
+     * 知识补充：
+     * console.log 是同步函数
+     * 在jsx内核中,默认先执行组件中的全部同步函数,再执行异步函数,而useState是异步函数,无法同情况监听
+     * 需要展示useState中的数据可以使用useEffect动态同步监听
+     */
     useEffect(() => {
         console.log(dateVisible)
     }, [dateVisible]);
 
-    const onConfirm = () => {
+    const onConfirm = (date) => {
         setDateVisible(false)
+        console.log(date)
+        const dateFormat = dayjs(date).format('YYYY-MM')
+        setCurrentDate(dateFormat)
     }
     return (
         <div className="monthlyBill">
@@ -24,9 +40,9 @@ const Month = () => {
                     {/* 时间切换区域 */}
                     <div className="date" onClick={() => setDateVisible(true)}>
                         <span className="text">
-                            2023 | 3月账单
+                            {currentDate + ''}月账单
                         </span>
-                        {/*箭头控制,根据类型控制*/}
+                        {/*箭头控制,根据类名控制箭头朝向*/}
                         <span className={classNames('arrow', dateVisible && 'expand')}></span>
                     </div>
                     {/* 统计区域 */}
