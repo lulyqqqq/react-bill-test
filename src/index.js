@@ -13,7 +13,7 @@ import store from "@/store";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-        //2.路由绑定
+        {/*//2.路由绑定*/}
         <RouterProvider router={router}/>
     </Provider>
 );
